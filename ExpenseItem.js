@@ -1,16 +1,37 @@
-import './ExpenseItem.css';
+import ExpenseDetails from "./ExpenseDetails";
+import ExpenseDate from "./ExpenseDate";
+import "./ExpenseItem.css";
+import Card from "../UI/Card";
+import React, { useState } from "react";
 
-function ExpenseItem(props) {
+const ExpenseItem=(props)=> {
+  // return React.createElement(
+  //   Card,
+  //   {},
+  //   React.createElement(ExpenseDate, { date: props.date }),
+  //   React.createElement(ExpenseDetails, {
+  //     title: props.title,
+  //     amount: props.amount,
+  //   })
+  // );
+  const[title,setTitle]=useState(props.title);
 
+  function clickHandler(){
+   setTitle('updated');
+  };
+
+  const[amount,setAmount]=useState(props.amount);
+
+  function changePrice(){
+   setAmount('100$');
+  };
   return (
-      <div className="expense-item">
-       <h5>{props.date.toISOString()}</h5>
-      <div className="expense-item__description">
-        <h2>{props.title}</h2>
-    <h4>{props.location}</h4>
-        <div className="expense-item__price">{props.amount}</div>
-        </div>
-    </div>
+      <Card className="expense-item">
+        <ExpenseDate date={props.date}></ExpenseDate>
+        <ExpenseDetails title={title} amount={amount} location={props.location}/>
+        <button onClick={clickHandler}>Change Title</button>
+        <button onClick={changePrice}>Change Price</button>
+    </Card>
   );
 }
 
